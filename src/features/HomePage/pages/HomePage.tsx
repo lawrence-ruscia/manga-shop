@@ -17,16 +17,16 @@ export const HomePage = () => {
       </div>
 
       {/* Product Grid */}
-      <div>
+      <ul>
         {products &&
           products.map((product) => (
-            <div key={product.id}>
+            <li key={product.id}>
               <p>{product.title}</p>
               <p>{product.price}</p>
               <p>{product.genre}</p>
-            </div>
+            </li>
           ))}
-      </div>
+      </ul>
     </div>
   );
 };

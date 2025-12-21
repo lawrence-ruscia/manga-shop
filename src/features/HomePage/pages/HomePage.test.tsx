@@ -23,11 +23,17 @@ describe('HomePage', () => {
     ).toBeInTheDocument();
   });
 
-  it.todo('renders a list of manga products', () => {
-    vi.spyOn(productsService, 'fetchProducts').mockResolvedValueOnce(
-      mockProducts
-    );
+  it('renders a list of manga products', async () => {
+    vi.spyOn(productsService, 'fetchProducts').mockResolvedValueOnce({
+      data: mockProducts,
+    });
 
     render(<HomePage />);
+
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+
+    // Make sure all products are rendered
+    const products = await screen.findAllByRole('listitem');
+    expect(products).toHaveLength(mockProducts.length);
   });
 });
