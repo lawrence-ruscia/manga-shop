@@ -1,7 +1,11 @@
-import styles from '@/app/App.module.css';
+import { Outlet } from 'react-router-dom';
 
 function App() {
-  return <h1>Yoru Manga</h1>;
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
 }
 
 export default App;
