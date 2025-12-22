@@ -36,6 +36,12 @@ body {
   color: var(--text-primary);
 }
 
+/* Prevents scrolling on mobile  menu*/
+.no-scroll {
+  overflow-y: hidden;
+  height: 100%;
+}
+
 button {
   transition: all 0.2s ease;
   border: none;

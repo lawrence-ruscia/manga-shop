@@ -1,31 +1,25 @@
 import { Link } from 'react-router-dom';
 import styles from './HeaderNav.module.css';
 import { Menu, Search, ShoppingCart } from 'lucide-react';
+import { navData } from '@/shared/data/navData';
+import { Logo } from '../Logo';
 
-const navData = [
-  {
-    title: 'Home',
-    url: '/',
-  },
-  {
-    title: 'Shop',
-    url: '/shop',
-  },
-];
-export const HeaderNav = () => {
+type HeaderNavProps = {
+  onMenuOpen: () => void;
+};
+export const HeaderNav = ({ onMenuOpen }: HeaderNavProps) => {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.left}>
-          <button className={`${styles.menu} btn-icon`} aria-label='Menu'>
+          <button
+            className={`${styles.menu} btn-icon`}
+            aria-label='Menu'
+            onClick={onMenuOpen}
+          >
             <Menu />
           </button>
-          <Link to={'/'} className={styles.logo}>
-            <span className={styles.kanji}>夜</span>
-            <div className={styles.brandName}>
-              <span className={styles.highlight}>Yoru</span> Manga
-            </div>
-          </Link>
+          <Logo />
         </div>
 
         <div className={styles.nav}>

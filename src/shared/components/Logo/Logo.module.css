@@ -1,0 +1,32 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--logo-size) * 0.2);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.kanji {
+  font-size: calc(var(--logo-size) * 0.5);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+
+  transition: transform 0.2s ease;
+}
+
+.brandName {
+  font-size: calc(var(--logo-size) * 0.5);
+  font-weight: bold;
+}
+
+.highlight {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .logo:hover .kanji {
+    transform: scale(1.2);
+  }
+}

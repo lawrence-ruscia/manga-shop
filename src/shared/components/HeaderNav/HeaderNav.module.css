@@ -28,32 +28,6 @@ a {
   color: var(--text-primary);
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1.125rem;
-  font-weight: 600;
-}
-
-.kanji {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
-
-  transition: transform 0.2s ease;
-}
-
-.logo:hover .kanji {
-  transform: scale(1.2);
-}
-
-.highlight {
-  color: var(--accent);
-  font-weight: 700;
-}
-
 .nav {
   display: none;
 
