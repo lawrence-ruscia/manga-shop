@@ -37,6 +37,7 @@ a {
 .nav a {
   color: var(--text-muted);
   font-size: 0.875rem;
+  transition: color 0.2s ease;
 }
 
 .nav a:hover {
