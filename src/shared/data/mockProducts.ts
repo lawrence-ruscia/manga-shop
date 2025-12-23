@@ -1,4 +1,4 @@
-import type { JikanManga } from '../types/JikanManga';
+import type { JikanManga } from '@/features/HomePage/types/JikanManga';
 
 export const mockProducts: JikanManga[] = [
   {

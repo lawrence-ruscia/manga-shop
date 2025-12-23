@@ -1,33 +1,16 @@
 import { describe, expect, it, vi } from 'vitest';
-import { screen, render } from '@testing-library/react';
-import { HomePage } from './HomePage';
 import { productsService } from '@/shared/services/productsService';
 import { mockProducts } from '@/shared/data/mockProducts';
+import { render, screen } from '@testing-library/react';
+import { ShopPage } from './ShopPage';
 
-describe('HomePage', () => {
-  it('renders a hero section', async () => {
-    vi.spyOn(productsService, 'fetchProducts').mockResolvedValueOnce({
-      data: mockProducts,
-    });
-
-    render(<HomePage />);
-
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
-
-    await screen.findByRole('heading', { name: /yoru manga/i });
-    expect(
-      screen.getByRole('button', { name: /browse manga/i })
-    ).toBeInTheDocument();
-
-    expect(screen.queryByText(/error/i)).not.toBeInTheDocument();
-  });
-
+describe('ShopPage', () => {
   it('renders a list of manga products', async () => {
     vi.spyOn(productsService, 'fetchProducts').mockResolvedValueOnce({
       data: mockProducts,
     });
 
-    render(<HomePage />);
+    render(<ShopPage />);
 
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
 
@@ -45,7 +28,7 @@ describe('HomePage', () => {
       new Error(errMsg)
     );
 
-    render(<HomePage />);
+    render(<ShopPage />);
 
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
     expect(await screen.findByText(errMsg)).toBeInTheDocument();

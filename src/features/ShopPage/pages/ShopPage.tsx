@@ -17,7 +17,7 @@ export const ShopPage = () => {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>{error.message}</div>;
   }
 
   return (
