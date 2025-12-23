@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import type { MangaProduct } from '../types/MangaProduct';
-import { mapMangaToProduct } from '../utils/mapMangaToProduct';
-import type { JikanManga } from '../types/JikanManga';
+import type { MangaProduct } from '../../features/HomePage/types/MangaProduct';
+import { mapMangaToProduct } from '../../features/HomePage/utils/mapMangaToProduct';
+import type { JikanManga } from '../../features/HomePage/types/JikanManga';
 import { productsService } from '../services/productsService';
+import type { FetchProductsParams } from '../types/FetchProductsParams';
 
-export const useProducts = (limit: number = 10) => {
+export const useProducts = (params: FetchProductsParams = {}) => {
   const [products, setProducts] = useState<MangaProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -20,7 +21,7 @@ export const useProducts = (limit: number = 10) => {
       setIsLoading(true);
       setError(null);
       try {
-        const data = await productsService.fetchProducts(limit, signal);
+        const data = await productsService.fetchProducts(params, signal);
 
         const mappedProducts = data.data.map((manga: JikanManga) =>
           mapMangaToProduct(manga)
@@ -41,7 +42,7 @@ export const useProducts = (limit: number = 10) => {
     return () => {
       controller.abort();
     };
-  }, [limit, version]);
+  }, [params, version]);
 
   const refetch = () => {
     setVersion((prev) => prev + 1);

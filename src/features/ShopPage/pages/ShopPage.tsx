@@ -1,10 +1,16 @@
 import { ProductCard } from '@/shared/components/ProductCard';
-import { useProducts } from '@/features/HomePage/hooks/useProducts';
+import { useProducts } from '@/shared/hooks/useProducts';
 import { ChevronDown, Funnel } from 'lucide-react';
 import styles from './ShopPage.module.css';
+import { useMemo } from 'react';
+import type { FetchProductsParams } from '@/shared/types/FetchProductsParams';
 
 export const ShopPage = () => {
-  const { products, isLoading, error } = useProducts();
+  const params: FetchProductsParams = useMemo(() => {
+    return { limit: 25, order_by: 'score', sort: 'desc' };
+  }, []);
+
+  const { products, isLoading, error } = useProducts(params);
 
   if (isLoading) {
     return <div>Loading...</div>;

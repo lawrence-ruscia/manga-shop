@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { screen, render } from '@testing-library/react';
 import { HomePage } from './HomePage';
-import { productsService } from '../services/productsService';
+import { productsService } from '@/shared/services/productsService';
 import { mockProducts } from '../data/mockProducts';
 
 describe('HomePage', () => {
