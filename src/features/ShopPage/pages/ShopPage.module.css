@@ -11,6 +11,10 @@
   gap: 0.5rem;
 }
 
+.header p {
+  color: var(--text-secondary);
+}
+
 .controls {
   display: flex;
   justify-content: space-between;

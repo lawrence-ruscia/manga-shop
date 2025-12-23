@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import styles from './ProductGrid.module.css';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { MangaProduct } from '../../types/MangaProduct';
-import { ProductCard } from '../ProductCard/ProductCard';
+import { ProductCard } from '@/shared/components/ProductCard';
 
 export const ProductGrid = ({ products }: { products: MangaProduct[] }) => {
   const listRef = useRef<HTMLUListElement>(null);

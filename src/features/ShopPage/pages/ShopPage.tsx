@@ -1,4 +1,4 @@
-import { ProductCard } from '@/features/HomePage/components/ProductCard/ProductCard';
+import { ProductCard } from '@/shared/components/ProductCard';
 import { useProducts } from '@/features/HomePage/hooks/useProducts';
 import { ChevronDown, Funnel } from 'lucide-react';
 import styles from './ShopPage.module.css';
