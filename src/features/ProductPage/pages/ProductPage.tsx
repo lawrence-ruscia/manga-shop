@@ -1,13 +1,15 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './ProductPage.module.css';
 import { useMangaData } from '../hooks/useMangaData';
 import { useState } from 'react';
+import { ChevronLeft } from 'lucide-react';
 
 export const ProductPage = () => {
   const { mangaId } = useParams();
 
   const { mangaData, isLoading, error } = useMangaData(Number(mangaId));
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -20,6 +22,13 @@ export const ProductPage = () => {
   return (
     <main className={styles.page}>
       <section className={styles.product}>
+        <button
+          type='button'
+          className={styles.back}
+          onClick={() => navigate(-1)}
+        >
+          <ChevronLeft /> Back
+        </button>
         {/* Media + Core Info */}
         <div className={styles.top}>
           {/* Image */}
