@@ -20,6 +20,14 @@ const mockMangaData: JikanManga = {
     'One Piece follows Monkey D. Luffy, a young, rubber-powered pirate inspired by his childhood hero to find the legendary "One Piece" treasure left behind by Gol D. Roger.',
 };
 
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useOutletContext: () => vi.fn(),
+  };
+});
+
 describe('ProductPage', () => {
   it('renders manga data when given a mangaId', async () => {
     vi.spyOn(mangaService, 'fetchMangaData').mockResolvedValueOnce({

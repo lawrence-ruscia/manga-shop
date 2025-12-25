@@ -3,21 +3,40 @@ import { MobileMenu } from '@/shared/components/MobileMenu';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useNoScroll } from './hooks/useNoScroll';
-import type { MangaProduct } from '@/features/HomePage/types/MangaProduct';
+import type { CartItem } from '@/features/Cart';
+
+export type CartContextType = {
+  cartItems: CartItem[];
+  addToCart: (product: Omit<CartItem, 'quantity'>) => void;
+};
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<MangaProduct[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   useNoScroll(isMenuOpen);
 
-  const onAddMangaItem = (manga: MangaProduct) => {
-    setCartItems((prev) => [...prev, manga]);
+  const addToCart = (product: Omit<CartItem, 'quantity'>) => {
+    setCartItems((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
+
+      // Increase quantity if item already in cart
+      if (existing) {
+        return prev.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+
+      // Otherwise, add with quantity
+      return [...prev, { ...product, quantity: 1 }];
+    });
   };
 
-  const outletContext = {
+  const cartContext: CartContextType = {
     cartItems,
-    onAddMangaItem,
+    addToCart,
   };
 
   return (
@@ -31,7 +50,7 @@ function App() {
         isMenuOpen={isMenuOpen}
         onMenuClose={() => setIsMenuOpen(false)}
       />
-      <Outlet context={outletContext} />
+      <Outlet context={cartContext} />
     </div>
   );
 }

@@ -5,6 +5,14 @@ import { productsService } from '@/shared/services/productsService';
 import { mockProducts } from '@/shared/data/mockProducts';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useOutletContext: () => vi.fn(),
+  };
+});
+
 describe('HomePage', () => {
   it('renders a hero section', async () => {
     vi.spyOn(productsService, 'fetchProducts').mockResolvedValueOnce({

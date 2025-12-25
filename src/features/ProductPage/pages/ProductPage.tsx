@@ -1,9 +1,11 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import styles from './ProductPage.module.css';
 import { useMangaData } from '../hooks/useMangaData';
 import { useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { LoadingPage } from '@/shared/pages/LoadingPage';
+import type { CartContextType } from '@/app/App';
+import type { MouseEvent } from 'react';
 
 export const ProductPage = () => {
   const { mangaId } = useParams();
@@ -11,6 +13,17 @@ export const ProductPage = () => {
   const { mangaData, isLoading, error } = useMangaData(Number(mangaId));
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
+
+  const { addToCart } = useOutletContext<CartContextType>();
+
+  const handleAddToCart = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault(); // Prevents the Link navigation
+    e.stopPropagation(); // Stops event from bubbling to Link
+
+    if (!mangaData) return;
+
+    addToCart(mangaData);
+  };
 
   if (isLoading) {
     return <LoadingPage />;
@@ -49,7 +62,12 @@ export const ProductPage = () => {
             <p>${mangaData?.price}</p>
 
             <div className={styles.actions}>
-              <button className='btn-primary btn-md'>Add to Cart</button>
+              <button
+                className='btn-primary btn-md'
+                onClick={(e) => handleAddToCart(e)}
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         </div>

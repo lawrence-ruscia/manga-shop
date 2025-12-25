@@ -5,6 +5,14 @@ import { render, screen } from '@testing-library/react';
 import { ShopPage } from './ShopPage';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useOutletContext: () => vi.fn(),
+  };
+});
+
 describe('ShopPage', () => {
   it('renders a list of manga products', async () => {
     vi.spyOn(productsService, 'fetchProducts').mockResolvedValueOnce({

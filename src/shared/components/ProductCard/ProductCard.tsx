@@ -1,7 +1,19 @@
 import type { MangaProduct } from '@/features/HomePage/types/MangaProduct';
 import styles from './ProductCard.module.css';
+import { useOutletContext } from 'react-router-dom';
+import type { CartContextType } from '@/app/App';
+import type { MouseEvent } from 'react';
 
 export const ProductCard = ({ product }: { product: MangaProduct }) => {
+  const { addToCart } = useOutletContext<CartContextType>();
+
+  const handleAddToCart = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault(); // Prevents the Link navigation
+    e.stopPropagation(); // Stops event from bubbling to Link
+
+    addToCart(product);
+  };
+
   return (
     <article key={product.id} className={styles.card}>
       <div className={styles.imageWrapper}>
@@ -17,7 +29,11 @@ export const ProductCard = ({ product }: { product: MangaProduct }) => {
 
         <div className={styles.footer}>
           <span className={styles.price}>${product.price}</span>
-          <button className='btn-md btn-primary' type='button'>
+          <button
+            className='btn-md btn-primary'
+            type='button'
+            onClick={(e) => handleAddToCart(e)}
+          >
             Add to cart
           </button>
         </div>
