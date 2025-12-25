@@ -1,8 +1,9 @@
 import type { CartContextType } from '@/app/App';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import styles from './CartPage.module.css';
 import type { CartItem } from '../types/CartItem';
 import { BackButton } from '@/shared/components/BackButton';
+import { ShoppingCart } from 'lucide-react';
 
 const calculateTotal = (cartItems: CartItem[]) => {
   return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -12,11 +13,31 @@ export const CartPage = () => {
   const { cartItems, changeQuantity, removeItem } =
     useOutletContext<CartContextType>();
 
+  const navigate = useNavigate();
+
   if (cartItems.length === 0) {
     return (
-      <main>
-        <h1>Your Cart</h1>
-        <p>Your Cart is empty.</p>
+      <main className={styles.page}>
+        <div className={styles.backContainer}>
+          <BackButton />
+        </div>
+        <h1 className={styles.heading}>Your Cart</h1>
+        <div className={styles.empty}>
+          <div className={styles.emptyIcon}>
+            <ShoppingCart size={36} strokeWidth={1.5} />
+          </div>
+          <h2 className={styles.emptyTitle}>Your cart is empty</h2>
+          <p className={styles.emptyText}>
+            Start adding your favorite manga to your cart and they'll appear
+            here.
+          </p>
+          <button
+            className={`${styles.browseManga} btn-primary btn-md`}
+            onClick={() => navigate('/shop')}
+          >
+            Browse Manga
+          </button>
+        </div>
       </main>
     );
   }
