@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import type { FetchProductsParams } from '@/shared/types/FetchProductsParams';
 import { Link } from 'react-router-dom';
 import { LoadingPage } from '@/shared/pages/LoadingPage';
+import { BackButton } from '@/shared/components/BackButton';
 
 export const ShopPage = () => {
   const params: FetchProductsParams = useMemo(() => {
@@ -24,6 +25,7 @@ export const ShopPage = () => {
 
   return (
     <main className={styles.page}>
+      <BackButton />
       {/* Page Header */}
       <section className={styles.header}>
         <h1>Shop Manga</h1>

@@ -1,8 +1,8 @@
 import type { CartContextType } from '@/app/App';
-import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import styles from './CartPage.module.css';
 import type { CartItem } from '../types/CartItem';
-import { ChevronLeft } from 'lucide-react';
+import { BackButton } from '@/shared/components/BackButton';
 
 const calculateTotal = (cartItems: CartItem[]) => {
   return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -10,7 +10,6 @@ const calculateTotal = (cartItems: CartItem[]) => {
 
 export const CartPage = () => {
   const { cartItems } = useOutletContext<CartContextType>();
-  const navigate = useNavigate();
 
   if (cartItems.length === 0) {
     return (
@@ -29,13 +28,7 @@ export const CartPage = () => {
   return (
     <main className={styles.page}>
       <div className={styles.backContainer}>
-        <button
-          type='button'
-          className={styles.back}
-          onClick={() => navigate(-1)}
-        >
-          <ChevronLeft /> Back
-        </button>
+        <BackButton />
       </div>
       <h1 className={styles.heading}>Your Cart</h1>
 

@@ -6,6 +6,7 @@ import { ChevronLeft } from 'lucide-react';
 import { LoadingPage } from '@/shared/pages/LoadingPage';
 import type { CartContextType } from '@/app/App';
 import type { MouseEvent } from 'react';
+import { BackButton } from '@/shared/components/BackButton';
 
 export const ProductPage = () => {
   const { mangaId } = useParams();
@@ -36,13 +37,7 @@ export const ProductPage = () => {
   return (
     <main className={styles.page}>
       <section className={styles.product}>
-        <button
-          type='button'
-          className={styles.back}
-          onClick={() => navigate(-1)}
-        >
-          <ChevronLeft /> Back
-        </button>
+        <BackButton />
         {/* Media + Core Info */}
         <div className={styles.top}>
           {/* Image */}
