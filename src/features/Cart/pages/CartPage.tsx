@@ -9,7 +9,8 @@ const calculateTotal = (cartItems: CartItem[]) => {
 };
 
 export const CartPage = () => {
-  const { cartItems, changeQuantity } = useOutletContext<CartContextType>();
+  const { cartItems, changeQuantity, removeItem } =
+    useOutletContext<CartContextType>();
 
   if (cartItems.length === 0) {
     return (
@@ -62,7 +63,12 @@ export const CartPage = () => {
                       changeQuantity(item.id, Number(e.target.value));
                     }}
                   />
-                  <button className={styles.remove}>Remove</button>
+                  <button
+                    className={styles.remove}
+                    onClick={() => removeItem(item.id)}
+                  >
+                    Remove
+                  </button>
                 </div>
               </div>
               <div className={styles.subtotal}>

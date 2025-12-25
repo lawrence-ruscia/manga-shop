@@ -9,6 +9,7 @@ export type CartContextType = {
   cartItems: CartItem[];
   addToCart: (product: Omit<CartItem, 'quantity'>) => void;
   changeQuantity: (productId: number, quantity: number) => void;
+  removeItem: (productId: number) => void;
 };
 
 function App() {
@@ -45,10 +46,15 @@ function App() {
     );
   };
 
+  const removeItem = (productId: number) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== productId));
+  };
+
   const cartContext: CartContextType = {
     cartItems,
     addToCart,
     changeQuantity,
+    removeItem,
   };
 
   return (
