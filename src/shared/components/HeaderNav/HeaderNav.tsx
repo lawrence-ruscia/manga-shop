@@ -6,8 +6,9 @@ import { Logo } from '../Logo';
 
 type HeaderNavProps = {
   onMenuOpen: () => void;
+  cartItemsCount: number;
 };
-export const HeaderNav = ({ onMenuOpen }: HeaderNavProps) => {
+export const HeaderNav = ({ onMenuOpen, cartItemsCount }: HeaderNavProps) => {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -41,7 +42,9 @@ export const HeaderNav = ({ onMenuOpen }: HeaderNavProps) => {
             className={`${styles.cart} btn-icon`}
           >
             <ShoppingCart />
-            <span className={styles.badge}>2</span>
+            {cartItemsCount > 0 && (
+              <span className={styles.badge}>{cartItemsCount}</span>
+            )}
           </button>
         </div>
       </div>
