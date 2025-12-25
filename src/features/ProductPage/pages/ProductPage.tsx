@@ -16,32 +16,34 @@ export const ProductPage = () => {
   }
 
   return (
-    <main>
-      <section>
+    <main className={styles.page}>
+      <section className={styles.product}>
         {/* Media + Core Info */}
-        <div>
+        <div className={styles.top}>
           {/* Image */}
-          <div>
+          <div className={styles.media}>
             <img src={mangaData?.imageUrl} alt='Manga cover' />
           </div>
 
           {/* Product Info */}
-          <div>
-            <h1>{mangaData?.title}</h1>
+          <div className={styles.info}>
+            <h1 className={styles.title}>{mangaData?.title}</h1>
 
-            <div>
+            <div className={styles.meta}>
               <span>⭐ {mangaData?.rating}</span>
               <span>{mangaData?.genre}</span>
             </div>
 
             <p>${mangaData?.price}</p>
 
-            <button>Add to Cart</button>
+            <div className={styles.actions}>
+              <button className='btn-primary btn-md'>Add to Cart</button>
+            </div>
           </div>
         </div>
 
         {/* Description */}
-        <div>
+        <div className={styles.description}>
           <h2>About this manga</h2>
           <p>{mangaData?.description}</p>
         </div>
