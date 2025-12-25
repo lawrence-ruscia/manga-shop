@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useNoScroll } from './hooks/useNoScroll';
 import type { CartItem } from '@/features/Cart';
+import { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 export type CartContextType = {
   cartItems: CartItem[];
@@ -34,6 +36,8 @@ function App() {
       // Otherwise, add with quantity
       return [...prev, { ...product, quantity: 1 }];
     });
+
+    toast.success(`${product.title} added to cart`);
   };
 
   const changeQuantity = (productId: number, quantity: number) => {
@@ -48,6 +52,8 @@ function App() {
 
   const removeItem = (productId: number) => {
     setCartItems((prev) => prev.filter((item) => item.id !== productId));
+    const item = cartItems.find((i) => i.id === productId);
+    toast.success(`${item?.title} removed`);
   };
 
   const cartContext: CartContextType = {
@@ -59,6 +65,20 @@ function App() {
 
   return (
     <div>
+      <Toaster
+        position='bottom-center'
+        toastOptions={{
+          duration: 2000,
+          style: {
+            background: 'var(--bg-surface)',
+            color: 'var(--text-primary)',
+            border: '1px solid var(--border)',
+            padding: '12px 16px',
+            fontSize: '0.9375rem',
+            fontWeight: '500',
+          },
+        }}
+      />
       <HeaderNav
         onMenuOpen={() => setIsMenuOpen(true)}
         cartItemsCount={cartItems.length}
