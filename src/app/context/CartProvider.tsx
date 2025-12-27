@@ -1,7 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 import type { CartItem } from '@/features/Cart';
 import toast from 'react-hot-toast';
-import { createContext, use, useState } from 'react';
+import { createContext, use, useReducer } from 'react';
+import { cartReducer } from './cartReducer';
 
 export type CartValues = {
   cartItems: CartItem[];
@@ -14,24 +15,12 @@ export type CartValues = {
 const CartContext = createContext<CartValues | null>(null);
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartState, dispatch] = useReducer(cartReducer, { cartItems: [] });
+
+  const { cartItems } = cartState;
 
   const addToCart = (product: Omit<CartItem, 'quantity'>) => {
-    setCartItems((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
-
-      // Increase quantity if item already in cart
-      if (existing) {
-        return prev.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-
-      // Otherwise, add with quantity
-      return [...prev, { ...product, quantity: 1 }];
-    });
+    dispatch({ type: 'ADD_TO_CART', product });
 
     toast.success(`${product.title} added to cart`);
   };
@@ -39,15 +28,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const changeQuantity = (productId: number, quantity: number) => {
     const safeQuantity = Math.max(1, quantity);
 
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === productId ? { ...item, quantity: safeQuantity } : item
-      )
-    );
+    dispatch({ type: 'CHANGE_QUANTITY', productId, quantity: safeQuantity });
   };
 
   const removeItem = (productId: number) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== productId));
+    dispatch({ type: 'REMOVE_ITEM', productId });
+
     const item = cartItems.find((i) => i.id === productId);
     toast.success(`${item?.title} removed`);
   };
