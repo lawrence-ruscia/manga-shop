@@ -1,11 +1,10 @@
 import type { MangaProduct } from '@/features/HomePage/types/MangaProduct';
 import styles from './ProductCard.module.css';
-import { useOutletContext } from 'react-router-dom';
-import type { CartContextType } from '@/app/App';
 import type { MouseEvent } from 'react';
+import { useCart } from '@/app/context/CartProvider';
 
 export const ProductCard = ({ product }: { product: MangaProduct }) => {
-  const { addToCart } = useOutletContext<CartContextType>();
+  const { addToCart } = useCart();
 
   const handleAddToCart = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault(); // Prevents the Link navigation

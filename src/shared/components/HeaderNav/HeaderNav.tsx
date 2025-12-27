@@ -4,13 +4,15 @@ import { Menu, Search, ShoppingCart } from 'lucide-react';
 import { navData } from '@/shared/data/navData';
 import { Logo } from '../Logo';
 import toast from 'react-hot-toast';
+import { useCart } from '@/app/context/CartProvider';
 
 type HeaderNavProps = {
   onMenuOpen: () => void;
-  cartItemsCount: number;
 };
-export const HeaderNav = ({ onMenuOpen, cartItemsCount }: HeaderNavProps) => {
+export const HeaderNav = ({ onMenuOpen }: HeaderNavProps) => {
   const navigate = useNavigate();
+
+  const { cartItems } = useCart();
 
   return (
     <header className={styles.header}>
@@ -55,8 +57,8 @@ export const HeaderNav = ({ onMenuOpen, cartItemsCount }: HeaderNavProps) => {
             onClick={() => navigate('/cart')}
           >
             <ShoppingCart />
-            {cartItemsCount > 0 && (
-              <span className={styles.badge}>{cartItemsCount}</span>
+            {cartItems.length > 0 && (
+              <span className={styles.badge}>{cartItems.length}</span>
             )}
           </button>
         </div>

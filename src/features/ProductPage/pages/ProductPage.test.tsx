@@ -5,6 +5,7 @@ import type { JikanManga } from '@/features/HomePage/types/JikanManga';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { mapMangaToProduct } from '@/features/HomePage/utils/mapMangaToProduct';
 import { ProductPage } from './ProductPage';
+import { CartProvider } from '@/app/context/CartProvider';
 
 const mockMangaData: JikanManga = {
   mal_id: 1,
@@ -39,7 +40,14 @@ describe('ProductPage', () => {
     render(
       <MemoryRouter initialEntries={['/manga/1']}>
         <Routes>
-          <Route path='/manga/:mangaId' element={<ProductPage />} />
+          <Route
+            path='/manga/:mangaId'
+            element={
+              <CartProvider>
+                <ProductPage />
+              </CartProvider>
+            }
+          />
         </Routes>
       </MemoryRouter>
     );

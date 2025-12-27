@@ -5,6 +5,7 @@ import { productsService } from '@/shared/services/productsService';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import * as hooks from '../hooks/useHomePage';
 import { mockHomePageData } from '../data/mockHomePageData';
+import { CartProvider } from '@/app/context/CartProvider';
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
@@ -28,7 +29,14 @@ describe('HomePage', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
         <Routes>
-          <Route path='/' element={<HomePage />} />
+          <Route
+            path='/'
+            element={
+              <CartProvider>
+                <HomePage />
+              </CartProvider>
+            }
+          />
         </Routes>
       </MemoryRouter>
     );
@@ -57,7 +65,14 @@ describe('HomePage', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
         <Routes>
-          <Route path='/' element={<HomePage />} />
+          <Route
+            path='/'
+            element={
+              <CartProvider>
+                <HomePage />
+              </CartProvider>
+            }
+          />
         </Routes>
       </MemoryRouter>
     );
@@ -79,7 +94,14 @@ describe('HomePage', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
         <Routes>
-          <Route path='/' element={<HomePage />} />
+          <Route
+            path='/'
+            element={
+              <CartProvider>
+                <HomePage />
+              </CartProvider>
+            }
+          />
         </Routes>
       </MemoryRouter>
     );

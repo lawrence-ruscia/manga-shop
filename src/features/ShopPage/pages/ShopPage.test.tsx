@@ -4,6 +4,7 @@ import { mockJikanManga } from '@/shared/data/mockProducts';
 import { render, screen } from '@testing-library/react';
 import { ShopPage } from './ShopPage';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { CartProvider } from '@/app/context/CartProvider';
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
@@ -22,7 +23,14 @@ describe('ShopPage', () => {
     render(
       <MemoryRouter initialEntries={['/shop']}>
         <Routes>
-          <Route path='/shop' element={<ShopPage />} />
+          <Route
+            path='/shop'
+            element={
+              <CartProvider>
+                <ShopPage />
+              </CartProvider>
+            }
+          />
         </Routes>
       </MemoryRouter>
     );
@@ -44,7 +52,14 @@ describe('ShopPage', () => {
     render(
       <MemoryRouter initialEntries={['/shop']}>
         <Routes>
-          <Route path='/shop' element={<ShopPage />} />
+          <Route
+            path='/shop'
+            element={
+              <CartProvider>
+                <ShopPage />
+              </CartProvider>
+            }
+          />
         </Routes>
       </MemoryRouter>
     );

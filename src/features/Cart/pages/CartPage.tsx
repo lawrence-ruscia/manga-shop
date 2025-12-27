@@ -1,17 +1,16 @@
-import type { CartContextType } from '@/app/App';
-import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './CartPage.module.css';
 import type { CartItem } from '../types/CartItem';
 import { BackButton } from '@/shared/components/BackButton';
 import { ShoppingCart } from 'lucide-react';
+import { useCart } from '@/app/context/CartProvider';
 
 const calculateTotal = (cartItems: CartItem[]) => {
   return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 };
 
 export const CartPage = () => {
-  const { cartItems, changeQuantity, removeItem, handleCheckout } =
-    useOutletContext<CartContextType>();
+  const { cartItems, changeQuantity, removeItem, handleCheckout } = useCart();
 
   const navigate = useNavigate();
 

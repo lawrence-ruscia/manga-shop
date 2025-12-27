@@ -2,10 +2,10 @@ import styles from './ProductPage.module.css';
 import { useMangaData } from '../hooks/useMangaData';
 import { useState } from 'react';
 import { LoadingPage } from '@/shared/pages/LoadingPage';
-import type { CartContextType } from '@/app/App';
 import type { MouseEvent } from 'react';
 import { BackButton } from '@/shared/components/BackButton';
-import { useOutletContext, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useCart } from '@/app/context/CartProvider';
 
 export const ProductPage = () => {
   const { mangaId } = useParams();
@@ -13,7 +13,7 @@ export const ProductPage = () => {
   const { mangaData, isLoading, error } = useMangaData(Number(mangaId));
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const { addToCart } = useOutletContext<CartContextType>();
+  const { addToCart } = useCart();
 
   const handleAddToCart = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault(); // Prevents the Link navigation
